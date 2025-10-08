@@ -3,7 +3,11 @@
 
 void GameScene::Initialize() {}
 
-std::optional<SceneId> GameScene::Update() { return std::nullopt; }
+std::optional<SceneId> GameScene::Update(float dt) {
+	(void)dt;
+
+	return std::nullopt;
+}
 
 void GameScene::Draw() {}
 

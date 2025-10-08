@@ -3,7 +3,11 @@
 
 void TitleScene::Initialize() {}
 
-std::optional<SceneId> TitleScene::Update() { return std::nullopt; }
+std::optional<SceneId> TitleScene::Update(float dt) {
+	(void)dt;
+
+	return std::nullopt;
+}
 
 void TitleScene::Draw() {}
 

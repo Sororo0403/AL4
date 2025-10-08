@@ -30,7 +30,8 @@ public:
 	/// <summary>
 	/// 現在のシーンを更新します。
 	/// </summary>
-	void Update();
+	/// <param name="dt">前フレームからの経過秒</param>
+	void Update(float dt);
 
 	/// <summary>
 	/// 現在のシーンの描画を実行します。
