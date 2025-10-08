@@ -1,6 +1,7 @@
 #pragma once
 #include "IScene.h"
 #include "Player.h"
+#include "Skydome.h" // 追加
 
 /// <summary>
 /// ゲーム本編のシーンクラス。
@@ -32,4 +33,5 @@ public:
 private:
 	std::unique_ptr<Player> player_;               ///< 自キャラ
 	std::unique_ptr<KamataEngine::Camera> camera_; ///< カメラ
+	std::unique_ptr<Skydome> skydome_;             ///< 天球
 };

@@ -7,14 +7,18 @@ using namespace KamataEngine;
 void Player::Initialize() {
 	input_ = Input::GetInstance();
 
-	// 立方体で仮プレイヤー
-	model_ = Model::Create();
+	// --- モデル読み込み（Resources/player/player.obj を読み込み）---
+	model_ = Model::CreateFromOBJ("player", /*smoothing=*/true);
+
+	// --- ワールド変換 ---
 	world_.Initialize();
-	world_.scale_ = {0.8f, 0.8f, 0.8f};      
+	world_.scale_ = {0.8f, 0.8f, 0.8f};
 	world_.translation_ = {0.0f, 0.5f, 0.0f};
+	// Blender上で右(+X)を正面に作った場合、初期向き補正を入れるなら↓
+	// world_.rotation_.y = MathUtil::kPi * 0.5f;
 	world_.TransferMatrix();
 
-	// ゲームパッドのデッドゾーン
+	// --- ゲームパッドのデッドゾーン ---
 	input_->SetJoystickDeadZone(0, deadZoneL_, deadZoneL_);
 }
 
@@ -41,12 +45,12 @@ void Player::Update(float dt) {
 		const float nx = std::clamp(lx / 32768.0f, -1.0f, 1.0f);
 		const float ny = std::clamp(ly / 32768.0f, -1.0f, 1.0f);
 
-		// デッドゾーン（手動。InputのSetJoystickDeadZoneも併用）
+		// デッドゾーン処理（手動）
 		auto dead = [this](float v) {
 			float t = static_cast<float>(deadZoneL_) / 32768.0f;
 			if (std::fabs(v) < t)
 				return 0.0f;
-			// 線形再マッピング（好みで）
+			// 線形再マッピング
 			float s = (std::fabs(v) - t) / (1.0f - t);
 			return (v > 0.0f ? s : -s);
 		};
@@ -55,7 +59,7 @@ void Player::Update(float dt) {
 		az += dead(ny);
 	}
 
-	// 正規化（斜めで速くならないように）
+	// --- 正規化（斜め移動で速くならないように）---
 	float len2 = ax * ax + az * az;
 	if (len2 > 1.0f) {
 		float inv = 1.0f / std::sqrt(len2);
@@ -63,26 +67,30 @@ void Player::Update(float dt) {
 		az *= inv;
 	}
 
-	// 目標速度
+	// --- 目標速度 ---
 	Vector3 targetVel{ax * moveSpeed_, 0.0f, az * moveSpeed_};
 
-	// 簡易ダンピング（エクスポネンシャルに近い補間）
+	// --- 簡易ダンピング補間 ---
 	float t = std::clamp(damp_ * dt, 0.0f, 1.0f);
 	vel_.x = vel_.x + (targetVel.x - vel_.x) * t;
-	vel_.y = 0.0f; // いまは平面移動のみ
+	vel_.y = 0.0f;
 	vel_.z = vel_.z + (targetVel.z - vel_.z) * t;
 
-	// 位置更新
+	// --- 位置更新 ---
 	world_.translation_.x += vel_.x * dt;
 	world_.translation_.z += vel_.z * dt;
 
-	// 進行方向にほんの少しだけ向きを合わせる（y回転）
+	// --- 向き更新（右移動＝右向きになる）---
 	if (std::fabs(vel_.x) + std::fabs(vel_.z) > 0.001f) {
-		float yaw = std::atan2(vel_.x, vel_.z); // z正方向を0とする
+		// モデルの正面が +X の場合（Blenderで右を正面にしている）
+		float yaw = std::atan2(vel_.z, vel_.x);
 		world_.rotation_.y = yaw;
+
+		// モデルの正面が +Z なら下記の式に変更：
+		// float yaw = std::atan2(vel_.x, vel_.z);
 	}
 
-	// 行列更新＆転送
+	// --- 行列更新＆転送 ---
 	world_.matWorld_ = MathUtil::MakeAffineMatrix(world_.scale_, world_.rotation_, world_.translation_);
 	world_.TransferMatrix();
 }

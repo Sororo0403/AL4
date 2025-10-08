@@ -8,13 +8,19 @@
 using namespace KamataEngine;
 
 void GameScene::Initialize() {
+	// プレイヤー
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
 
+	// カメラ
 	camera_ = std::make_unique<Camera>();
 	camera_->translation_ = {0.0f, 2.0f, -6.0f};
 	camera_->rotation_ = {0.3f, 0.0f, 0.0f}; // 軽く下向きに
 	camera_->Initialize();
+
+	// 天球
+	skydome_ = std::make_unique<Skydome>();
+	skydome_->Initialize();
 }
 
 std::optional<SceneId> GameScene::Update(float dt) {
@@ -39,12 +45,32 @@ std::optional<SceneId> GameScene::Update(float dt) {
 	camera_->UpdateMatrix();
 	camera_->TransferMatrix();
 
+	// 天球更新（行列転送など）
+	if (skydome_) {
+		skydome_->Update();
+	}
+
+		ImGuiManager* imgui = ImGuiManager::GetInstance();
+	imgui->Begin();
+	ImGui::Text("x: %.3f", player_->GetPosition().x);
+	ImGui::Text("y: %.3f", player_->GetPosition().y);
+	ImGui::Text("z: %.3f", player_->GetPosition().z);
+	imgui->End();
+
 	return std::nullopt;
 }
 
 void GameScene::Draw() {
 	Model::PreDraw();
+
+	// 先に天球（背景）を描く
+	if (skydome_) {
+		skydome_->Draw(*camera_);
+	}
+
+	// その後にゲーム中オブジェクト
 	player_->Draw(*camera_);
+
 	Model::PostDraw();
 }
 
@@ -54,5 +80,6 @@ void GameScene::Finalize() {
 		player_.reset();
 	}
 
+	skydome_.reset();
 	camera_.reset();
 }

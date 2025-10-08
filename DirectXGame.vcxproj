@@ -154,6 +154,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="TaroEngine\Actor\Skydome.cpp" />
     <ClCompile Include="TaroEngine\Actor\Player.cpp" />
     <ClCompile Include="TaroEngine\Scene\GameScene.cpp" />
     <ClCompile Include="TaroEngine\App\main.cpp" />
@@ -258,6 +259,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TaroEngine\Actor\Skydome.h" />
     <ClInclude Include="TaroEngine\Actor\Player.h" />
     <ClInclude Include="TaroEngine\Math\MathUtil.h" />
     <ClInclude Include="TaroEngine\Scene\GameScene.h" />

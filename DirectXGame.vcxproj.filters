@@ -96,6 +96,9 @@
     <ClCompile Include="TaroEngine\Actor\Player.cpp">
       <Filter>Source\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="TaroEngine\Actor\Skydome.cpp">
+      <Filter>Source\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TaroEngine\Scene\SceneId.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="TaroEngine\Math\MathUtil.h">
       <Filter>Include\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="TaroEngine\Actor\Skydome.h">
+      <Filter>Include\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

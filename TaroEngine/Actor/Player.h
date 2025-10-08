@@ -2,20 +2,42 @@
 #include <KamataEngine.h>
 
 /// <summary>
-/// A01: 自キャラ操作（カーソル／スティックで移動）
+/// A01: 自キャラ操作クラス（カーソル／スティックで移動）
 /// </summary>
 class Player {
 public:
+	/// <summary>
+	/// 初期化処理を行います。
+	/// </summary>
 	void Initialize();
+
+	/// <summary>
+	/// フレーム更新処理を行います。
+	/// </summary>
+	/// <param name="dt">前フレームからの経過時間（秒）</param>
 	void Update(float dt);
+
+	/// <summary>
+	/// モデルを描画します。
+	/// </summary>
+	/// <param name="camera">描画に使用するカメラ</param>
 	void Draw(const KamataEngine::Camera& camera) const;
+
+	/// <summary>
+	/// 終了処理を行います。
+	/// </summary>
 	void Finalize();
 
-	// 位置を外から参照（カメラ追従など）
+	/// <summary>
+	/// 現在位置を取得します。（カメラ追従などで使用）
+	/// </summary>
 	const KamataEngine::Vector3& GetPosition() const { return world_.translation_; }
 
 private:
+	// モデル
 	KamataEngine::Model* model_ = nullptr;
+
+	// ワールド変換
 	KamataEngine::WorldTransform world_{};
 
 	// 移動パラメータ

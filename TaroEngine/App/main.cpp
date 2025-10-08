@@ -15,6 +15,9 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// DirectXCommon の取得
 	DirectXCommon* dx = DirectXCommon::GetInstance();
 
+	// ImGuiManagerの取得
+	ImGuiManager* imgui = ImGuiManager::GetInstance();
+
 	// --- 1.5) シーン登録 ---
 	SceneManager scenes;
 	scenes.Register(SceneId::TITLE, [] { return std::make_unique<TitleScene>(); });
@@ -48,11 +51,12 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			dt = 0.0f;
 
 		// --- 更新フェーズ ---
-		scenes.Update(dt); 
+		scenes.Update(dt);
 
 		// --- 描画フェーズ ---
 		dx->PreDraw();
 		scenes.Draw();
+		imgui->Draw();
 		dx->PostDraw();
 	}
 
