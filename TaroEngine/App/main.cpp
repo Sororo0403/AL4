@@ -19,7 +19,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	SceneManager scenes;
 	scenes.Register(SceneId::TITLE, [] { return std::make_unique<TitleScene>(); });
 	scenes.Register(SceneId::GAME, [] { return std::make_unique<GameScene>(); });
-	scenes.SetFirst(SceneId::TITLE);
+	scenes.SetFirst(SceneId::GAME);
 
 	// --- 高分解能タイマ準備 ---
 	LARGE_INTEGER freq{};

@@ -1,5 +1,6 @@
 #pragma once
 #include "IScene.h"
+#include "Player.h"
 
 /// <summary>
 /// ゲーム本編のシーンクラス。
@@ -27,4 +28,8 @@ public:
 	/// シーン終了時の後処理を行います。
 	/// </summary>
 	void Finalize() override;
+
+private:
+	std::unique_ptr<Player> player_;               ///< 自キャラ
+	std::unique_ptr<KamataEngine::Camera> camera_; ///< カメラ
 };
