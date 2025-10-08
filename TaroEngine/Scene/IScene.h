@@ -20,8 +20,9 @@ public:
 	/// <summary>
 	/// 毎フレーム更新処理を行います。
 	/// </summary>
+	/// <param name="dt">前フレームからの経過秒</param>
 	/// <returns>次のシーンID（切り替えない場合は std::nullopt）</returns>
-	virtual std::optional<SceneId> Update() = 0;
+	virtual std::optional<SceneId> Update(float dt) = 0;
 
 	/// <summary>
 	/// 毎フレームの描画処理を行います。

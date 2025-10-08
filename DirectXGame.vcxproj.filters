@@ -21,6 +21,15 @@
     <Filter Include="Source\App">
       <UniqueIdentifier>{05157807-a480-4af8-8ce9-051a9f4d295d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor">
+      <UniqueIdentifier>{39849d43-c072-474e-bb8a-c49ed67a04cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Actor">
+      <UniqueIdentifier>{7aa80499-f66f-4ca0-b9a1-7a6bbbf3acb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Math">
+      <UniqueIdentifier>{8ac6a1b6-2eff-40d4-8354-22061b76f37e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -84,6 +93,12 @@
     <ClCompile Include="TaroEngine\Scene\GameScene.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="TaroEngine\Actor\Player.cpp">
+      <Filter>Source\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="TaroEngine\Actor\Skydome.cpp">
+      <Filter>Source\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TaroEngine\Scene\SceneId.h">
@@ -100,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="TaroEngine\Scene\GameScene.h">
       <Filter>Include\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TaroEngine\Actor\Player.h">
+      <Filter>Include\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="TaroEngine\Math\MathUtil.h">
+      <Filter>Include\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="TaroEngine\Actor\Skydome.h">
+      <Filter>Include\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

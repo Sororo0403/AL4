@@ -4,12 +4,12 @@ void SceneManager::Register(SceneId id, SceneFactory factory) { factories_[id] =
 
 void SceneManager::SetFirst(SceneId id) { Change(id); }
 
-void SceneManager::Update() {
+void SceneManager::Update(float dt) {
 	if (!hasCurrent_ || !current_) {
 		return;
 	}
 
-	if (auto next = current_->Update()) {
+	if (auto next = current_->Update(dt)) {
 		Change(*next);
 	}
 }
